@@ -26,6 +26,18 @@ describe('Game Of Life', () => {
             const cell = gameOfLife.shoudLive({positionX: 1, positionY: 1})
             expect(cell).toBe(true)
         })
+        it("should die if more than three live neighbours (overpopulation)",()=>{
+            let grid =  [
+                [0, 1, 0, 0, 0],
+                [1, 1, 1, 0, 0],
+                [0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
+            ]
+            const gameOfLife = new GameOfLife(grid)
+            const cell = gameOfLife.shoudLive({positionX: 1, positionY: 1})
+            expect(cell).toBe(false)
+        })
 
     })
 

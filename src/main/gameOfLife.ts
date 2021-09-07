@@ -27,11 +27,12 @@ export class GameOfLife {
         if (liveNeighbours < 2) {
             return false
         }
-        if(liveNeighbours === 3){
+        if(liveNeighbours === 2 || liveNeighbours === 3){
             return true
         }
-
-
+        if(liveNeighbours > 3){
+            return false
+        }
     }
 
 }
