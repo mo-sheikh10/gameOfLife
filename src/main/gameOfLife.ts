@@ -4,6 +4,7 @@ interface Position {
 }
 
 type Grid = number[][]
+
 export class GameOfLife {
     private grid: Grid
 
@@ -11,31 +12,42 @@ export class GameOfLife {
         this.grid = grid
     }
 
-    shoudLive(position: Position){
+    shoudLive(position: Position) {
         let liveNeighbours = 0
         for (let i = (position.positionY - 1); i <= (position.positionY + 1); i++) {
             for (let j = (position.positionX - 1); j <= (position.positionX + 1); j++) {
-                if (i == position.positionY && j == position.positionX){
+                if (i == position.positionY && j == position.positionX) {
                     continue
                 }
-                if (this.grid[i][j] == 1){
+                if (this.grid[i][j] == 1) {
                     liveNeighbours++
                 }
             }
         }
 
-        if (liveNeighbours < 2) {
+        if (this.grid[position.positionY][position.positionX] === 0) {
+            if (liveNeighbours === 3) {
+                return true
+            }
+            return false
+        } else if (this.grid[position.positionY][position.positionX] === 1) {
+            if (liveNeighbours < 2) {
+                return false
+            }
+            if (liveNeighbours > 3) {
+                return false
+            }
+            if (liveNeighbours === 2 || liveNeighbours === 3) {
+                return true
+            }
             return false
         }
-        if(liveNeighbours === 2 || liveNeighbours === 3){
-            return true
-        }
-        if(liveNeighbours > 3){
-            return false
-        }
+
+
     }
 
 }
+
 // (i-1,j-1) (i-1,j) (i-1,j+1)
 // (i  ,j-1)    1    (i  ,j+1)
 // (i+1,j-1) (i+1,j) (i+1,j+1)
